@@ -4,7 +4,7 @@
 """
 import csv
 import math
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
@@ -39,8 +39,8 @@ class Server:
         """
             Returns the page
         """
-        assert isinstance(page, int) and page > 0
-        assert isinstance(page_size, int) and page_size > 0
+        assert type(page) is int and page > 0
+        assert type(page_size) is int and page_size > 0
 
         data = self.dataset()
 
@@ -50,12 +50,12 @@ class Server:
         except IndexError:
             return []
 
-    def get_hyper(self, page: int = 1, page_size: int = 10) -> dict:
+    def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict:
         """
             returns a dictionary containing the following key-value pairs
         """
-        assert isinstance(page, int) and page > 0
-        assert isinstance(page_size, int) and page_size > 0
+        assert type(page) is int and page > 0
+        assert type(page_size) is int and page_size > 0
 
         data = self.get_page(page, page_size)
         total_pages = math.ceil(len(self.dataset()) / page_size)
@@ -63,7 +63,7 @@ class Server:
         start_indx, end_indx = index_range(page, page_size)
 
         if (page < total_pages):
-            next_page = page+1
+            next_page = page + 1
         else:
             next_page = None
 
@@ -72,8 +72,7 @@ class Server:
         else:
             prev_page = page - 1
 
-        return {
-                'page_size': len(data)
+        return {'page_size': len(data),
                 'page': page,
                 'data': data,
                 'next_page': next_page,
