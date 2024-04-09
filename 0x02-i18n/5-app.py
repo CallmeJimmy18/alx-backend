@@ -11,6 +11,7 @@ class Config:
     BABEL_DEFAULT_LOCALE = "en"
     BABEL_DEFAULT_TIMEZONE = "UTC"
 
+
 app = Flask(__name__)
 app.config.from_object(Config)
 app.url_map.strict_slashes = False
@@ -32,6 +33,7 @@ def get_user() -> Union[Dict, None]:
     if user_id:
         return users.get(int(user_id))
     return None
+
 
 @app.before_request
 def before_request() -> None:
